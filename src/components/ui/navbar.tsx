@@ -1,27 +1,27 @@
-import { motion } from 'framer-motion'
-import { Menu, Moon, Sun } from 'lucide-react'
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { useAuthStore } from '../../lib/store'
-import { useTheme } from '../theme-provider'
-import { Button } from './button'
-import { Sheet, SheetContent, SheetTrigger } from './sheet'
+import { motion } from 'framer-motion';
+import { Menu, Moon, Sun } from 'lucide-react';
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuthStore } from '../../lib/store';
+import { useTheme } from '../theme-provider';
+import { Button } from './button';
+import { Sheet, SheetContent, SheetTrigger } from './sheet';
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme()
-  const { isAuthenticated } = useAuthStore()
-  const [isOpen, setIsOpen] = useState(false)
+  const { theme, setTheme } = useTheme();
+  const { isAuthenticated } = useAuthStore();
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Submit Domain', href: '/submit' },
     { label: 'Guides', href: '/guides' },
     ...(isAuthenticated ? [{ label: 'Dashboard', href: '/admin' }] : []),
-  ]
+  ];
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,7 +58,8 @@ export function Navbar() {
                 <NavLink
                   to={item.href}
                   className={({ isActive }) =>
-                    `text-sm font-medium transition-colors hover:text-primary ${isActive ? 'text-primary' : 'text-muted-foreground'
+                    `text-sm font-medium transition-colors hover:text-primary ${
+                      isActive ? 'text-primary' : 'text-muted-foreground'
                     }`
                   }
                 >
@@ -85,22 +86,6 @@ export function Navbar() {
             </Button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.5 }}
-          >
-            {isAuthenticated ? (
-              <Button asChild>
-                <Link to="/admin">Dashboard</Link>
-              </Button>
-            ) : (
-              <Button asChild className='text-white'>
-                <Link to="/login">Login</Link>
-              </Button>
-            )}
-          </motion.div>
-
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -115,7 +100,10 @@ export function Navbar() {
                     to={item.href}
                     onClick={() => setIsOpen(false)}
                     className={({ isActive }) =>
-                      `text-sm font-medium transition-colors hover:text-primary p-2 rounded-md ${isActive ? 'bg-muted text-primary' : 'text-muted-foreground'
+                      `text-sm font-medium transition-colors hover:text-primary p-2 rounded-md ${
+                        isActive
+                          ? 'bg-muted text-primary'
+                          : 'text-muted-foreground'
                       }`
                     }
                   >
@@ -128,5 +116,5 @@ export function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }
