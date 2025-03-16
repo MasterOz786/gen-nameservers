@@ -3,11 +3,12 @@ import axios from 'axios'
 
 // Create axios instance with base URL and default headers
 const api = axios.create({
-  baseURL: process.env.VITE_API_URL || 'http://localhost:8000',
+  baseURL: (typeof process !== 'undefined' && process.env?.VITE_API_URL) || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
+
 
 // Add request interceptor to add auth token to requests
 api.interceptors.request.use(
@@ -36,28 +37,28 @@ api.interceptors.response.use(
 
 // Auth API
 export const authApi = {
-  login: (email: string, password: string) => 
+  login: (email: string, password: string) =>
     api.post('/auth/login', { username: email, password }),
-  register: (email: string, password: string, fullName: string) => 
+  register: (email: string, password: string, fullName: string) =>
     api.post('/auth/register', { email, password, full_name: fullName }),
 }
 
 // Domains API
 export const domainsApi = {
   // submitDomain: (domain: string, email: string) =>
-  submitDomain: (domain: string) => 
+  submitDomain: (domain: string) =>
     api.post('/nameservers/create', { domain }),
-  getDomains: () => 
+  getDomains: () =>
     api.get('/nameservers'),
-  getDomain: (domain: string) => 
+  getDomain: (domain: string) =>
     api.get(`/nameservers/${domain}`),
-  deleteDomain: (domain: string) => 
+  deleteDomain: (domain: string) =>
     api.delete(`/nameservers/${domain}`),
 }
 
 // Tasks API
 export const tasksApi = {
-  getTaskStatus: (taskId: string) => 
+  getTaskStatus: (taskId: string) =>
     api.get(`/tasks/status/${taskId}`),
 }
 

@@ -11,6 +11,7 @@ import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { NotFound } from './pages/not-found'
 import { SubmitDomain } from './pages/submit-domain'
+import Guides from './pages/guides'
 
 function App() {
   const location = useLocation()
@@ -23,10 +24,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/submit" element={<SubmitDomain />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/guides" element={<Guides />} />
         </Route>
 
         {/* Admin Routes */}
-        <Route 
+        <Route
           element={
             <ProtectedRoute>
               <AdminLayout />

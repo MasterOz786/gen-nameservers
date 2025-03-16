@@ -19,6 +19,7 @@ export function Navbar() {
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Submit Domain', href: '/submit' },
+    { label: 'Guides', href: '/guides' },
     ...(isAuthenticated ? [{ label: 'Dashboard', href: '/admin' }] : []),
   ]
 
@@ -36,7 +37,7 @@ export function Navbar() {
                 <span className="text-white font-bold text-sm">NS</span>
               </div>
             </motion.div>
-            <motion.span 
+            <motion.span
               className="font-bold text-xl hidden md:inline-block"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -45,7 +46,7 @@ export function Navbar() {
               Nameserver Generator
             </motion.span>
           </Link>
-          
+
           <nav className="hidden md:flex gap-6">
             {navItems.map((item, index) => (
               <motion.div
@@ -54,11 +55,10 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
               >
-                <NavLink 
+                <NavLink
                   to={item.href}
-                  className={({ isActive }) => 
-                    `text-sm font-medium transition-colors hover:text-primary ${
-                      isActive ? 'text-primary' : 'text-muted-foreground'
+                  className={({ isActive }) =>
+                    `text-sm font-medium transition-colors hover:text-primary ${isActive ? 'text-primary' : 'text-muted-foreground'
                     }`
                   }
                 >
@@ -68,7 +68,7 @@ export function Navbar() {
             ))}
           </nav>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <motion.div
             initial={{ opacity: 0 }}
@@ -84,7 +84,7 @@ export function Navbar() {
               {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </Button>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -95,12 +95,12 @@ export function Navbar() {
                 <Link to="/admin">Dashboard</Link>
               </Button>
             ) : (
-              <Button asChild>
+              <Button asChild className='text-white'>
                 <Link to="/login">Login</Link>
               </Button>
             )}
           </motion.div>
-          
+
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -114,9 +114,8 @@ export function Navbar() {
                     key={item.href}
                     to={item.href}
                     onClick={() => setIsOpen(false)}
-                    className={({ isActive }) => 
-                      `text-sm font-medium transition-colors hover:text-primary p-2 rounded-md ${
-                        isActive ? 'bg-muted text-primary' : 'text-muted-foreground'
+                    className={({ isActive }) =>
+                      `text-sm font-medium transition-colors hover:text-primary p-2 rounded-md ${isActive ? 'bg-muted text-primary' : 'text-muted-foreground'
                       }`
                     }
                   >
